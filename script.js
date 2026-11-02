@@ -1,36 +1,52 @@
 const fetchButton = document.getElementById("fetch-button");
 
 const fetchData = async () => {
+    const errorMessage = document.getElementById("error-message");
+
     try {
-        const response = await fetch("https://randomuser.me/api/?results=20");
+        errorMessage.textContent = "";
+
+        const response = await fetch("https://statsapi.mlb.com/api/v1/teams?sportId=1");
 
         const data = await response.json();
 
-        const users = data.results;
+        const teams = data.teams;
 
-        const container = document.getElementById("user-container");
+        const teamContainer = document.getElementById("team-container");
 
-        container.textContent = "";
+        teamContainer.textContent = "";
 
-        users.forEach((user) => {
+        teams.forEach((team) => {
             const card = document.createElement("div");
-            card.classList.add("card");
+            card.classList.add("team-card");
 
-            const photo = document.createElement("img");
-            photo.src = user.picture.large;
-            photo.alt = "User Image";
+            const logo = document.createElement("img");
+            logo.src = `https://www.mlbstatic.com/team-logos/${team.id}.svg`;
+            logo.alt = team.name + " logo";
+            card.appendChild(logo);
 
-            const fullName = document.createElement("h3");
-            fullName.textContent = `${user.name.first} ${user.name.last}`;
+            const name = document.createElement("div");
+            name.classList.add("teamName");
+            name.textContent = team.name;
+            card.appendChild(name);
 
-            const email = document.createElement("p");
-            email.textContent = user.email;
-            card.append(photo, fullName, email);
-            container.appendChild(card);
+            const city = document.createElement("div");
+            city.classList.add("teamCity");
+            city.textContent = team.locationName;
+            card.appendChild(city);
+
+            const venue = document.createElement("div");
+            venue.classList.add("teamVenue");
+            venue.textContent = team.venue.name;
+            card.appendChild(venue);
+
+
+
+            teamContainer.appendChild(card);
+
         });
     } catch (error) {
-    console.error("An error occurred:", error);
-
-}
+        errorMessage.textContent = "An error occurred while fetching the data.";
+    }
 };
 fetchButton.addEventListener("click", fetchData);

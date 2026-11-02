@@ -1,0 +1,51 @@
+:root {
+    --background-color: #ffffff;
+    --accent-color: #002D72;
+    --accent-color-hover: #012255;
+    --secondary-accent-color: #D50032;
+}
+
+body {
+    background-color: var(--background-color);
+    padding: 20px;
+    text-align: center;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 20px; 
+}
+
+.team-card {
+    background-color: var(--background-color);
+    border: 2.5px solid var(--secondary-accent-color);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.team-card img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+#fetch-button {
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 1.1rem;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 20px;
+    border-radius: 1000px;
+    display: inline-block;
+}
+
+#fetch-button:hover {
+    background-color: var(--accent-color-hover);
+}
+
